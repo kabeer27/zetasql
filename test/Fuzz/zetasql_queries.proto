@@ -1,0 +1,9 @@
+syntax = "proto2";
+
+import "zetasql_query_grammar.proto";
+
+package zetasql_query_grammar;
+
+message SQLQueries {
+    required CreateTable create_table = 1;
+}

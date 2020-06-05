@@ -1,0 +1,56 @@
+
+syntax = "proto2";
+
+
+package zetasql_query_grammar;
+
+message SQLQuery {
+    oneof query_oneof {
+        CreateTable create_table = 1;
+    }
+    
+}
+
+enum TempModifier {
+    TEMP = 1;
+    TEMPORARY = 2;
+}
+
+message CreateTable {
+    oneof optional_clause {
+        Replace replace = 1;
+        IfNotExist if_not_exist = 4;
+    }
+    optional TempModifier temp_modifier = 2;
+    required Table table = 3;
+    required TableStructure table_structure = 5;
+    // to do partition by, cluster by, options, as query
+
+}
+
+message TableStructure {
+    required ColumnDefinition col_def = 1;
+    repeated ColumnDefinition extra_col_defs = 2;
+    // To do table constraints
+}
+
+message ColumnDefinition {
+    required Column col = 1;
+    // To do data type(confused here a little bit)
+    // To do column constraints
+}
+message Column {
+    required uint32 col = 1;
+}
+
+message Table{
+    required uint32 table = 1;
+}
+
+message Replace {
+    required bool exist = 1;
+}
+
+message IfNotExist {
+    required bool exist = 1;
+}
